@@ -1,57 +1,62 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import './ContactsForm.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export class ContactsForm extends Component {
-  state = {
-    name: '',
-    number: '',
+export function ContactsForm(props) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const setState = {
+    name: setName,
+    number: setNumber,
   };
 
-  handleChange = event => {
+  const handleChange = event => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    if (name === 'name') {
+      setName(value);
+    } else if (name === 'number') {
+      setNumber(value);
+    }
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    const { name, number } = this.state;
 
-    this.props.onSubmit({ name, number });
-    this.setState({ name: '', number: '' });
+    props.onSubmit({ name, number });
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    return (
-      <div className="contact-wrapper">
-        <form onSubmit={this.handleSubmit}>
-          <label className="title">Name</label>
-          <input
-            className="form-control mb-3"
-            type="text"
-            name="name"
-            required
-            id={nanoid()}
-            placeholder="Ivan"
-            value={this.state.name}
-            onChange={this.handleChange}
-          />
-          <label className="title">Number</label>
-          <input
-            className="form-control mb-3"
-            type="number"
-            name="number"
-            required
-            placeholder="000-00-00"
-            value={this.state.number}
-            onChange={this.handleChange}
-          />
-          <button className="addContactBtn" type="submit">
-            Add contact
-          </button>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div className="contact-wrapper">
+      <form onSubmit={handleSubmit}>
+        <label className="title">Name</label>
+        <input
+          className="form-control mb-3"
+          type="text"
+          name="name"
+          required
+          id={nanoid()}
+          placeholder="Ivan"
+          value={name}
+          onChange={handleChange}
+        />
+        <label className="title">Number</label>
+        <input
+          className="form-control mb-3"
+          type="number"
+          name="number"
+          required
+          placeholder="000-00-00"
+          value={number}
+          onChange={handleChange}
+        />
+        <button className="addContactBtn" type="submit">
+          Add contact
+        </button>
+      </form>
+    </div>
+  );
 }
