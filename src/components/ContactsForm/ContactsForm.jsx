@@ -7,11 +7,6 @@ export function ContactsForm(props) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const setState = {
-    name: setName,
-    number: setNumber,
-  };
-
   const handleChange = event => {
     const { name, value } = event.target;
     if (name === 'name') {

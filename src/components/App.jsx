@@ -10,13 +10,6 @@ export function App() {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
-  const handleChange = event => {
-    const { value, name } = event.target;
-    if (name === 'filter') {
-      setFilter(value);
-    }
-  };
-
   const onFilterChange = event => {
     const inputValue = event.target.value;
     setFilter(inputValue);
